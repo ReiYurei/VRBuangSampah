@@ -23,6 +23,7 @@ public class TrashBin : MonoBehaviour
             {
                 gameScore.score += minusPoint * -1;
             }
+            other.gameObject.SetActive(false);
         }
         
     }

@@ -15,6 +15,7 @@ public class CameraTransform : MonoBehaviour
 
     void Awake()
     {
+        Application.targetFrameRate = 60;
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
     }

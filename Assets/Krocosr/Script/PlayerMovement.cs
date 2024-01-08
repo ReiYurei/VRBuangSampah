@@ -1,4 +1,5 @@
 
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
@@ -20,11 +21,10 @@ public class PlayerMovement : MonoBehaviour
 
     void GatherInput()
     {
-        _moveInput = 
-            new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical"));
+        _moveInput = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical"));
+        Vector3.Normalize(_moveInput);
     }
 
-    // Update is called once per frame
     void Update()
     {
         GatherInput();

@@ -9,6 +9,10 @@ public class TrashBin : MonoBehaviour
 
     public float plusPoint;
     public float minusPoint;
+    private void Awake()
+    {
+        gameScore = GameObject.Find("Score").GetComponent<GameScore>();
+    }
 
     private void OnTriggerEnter(Collider other)
     {

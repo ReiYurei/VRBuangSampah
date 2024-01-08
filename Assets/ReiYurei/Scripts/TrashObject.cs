@@ -4,12 +4,14 @@ using UnityEngine;
 
 public class TrashObject : MonoBehaviour, IInteractable
 {
+    public Rigidbody rb;
     public TypeOfTrash trashType;
-    private SphereCollider _col;
+    private Collider _col;
 
     private void Awake()
     {
-        _col = GetComponent<SphereCollider>();
+        rb = GetComponent<Rigidbody>();
+        _col = GetComponent<Collider>();
     }
 
     public void Interaction()
@@ -27,15 +29,28 @@ public class TrashObject : MonoBehaviour, IInteractable
     {
         while (Interact.HasItem == true)
         {
-            transform.position = Interact._HandHandle.position;
-            transform.rotation = Interact._HandHandle.rotation;
+            rb.velocity = new Vector3(0, 1, 0);
+            transform.position = Interact._DropHandle.position;
+            transform.rotation = Interact._DropHandle.rotation;
             if (Input.GetKey(KeyCode.G))
             {
+
                 _col.enabled = !_col.enabled;
                 Interact.HasItem = !Interact.HasItem;
+                transform.position = Interact._DropHandle.position;
+                transform.rotation = Interact._DropHandle.rotation;
                 StopCoroutine("GetItem");
             }
+            if (Input.GetKey(KeyCode.Q))
+            {
 
+                _col.enabled = !_col.enabled;
+                Interact.HasItem = !Interact.HasItem;
+                transform.position = Interact._DropHandle.position;
+                transform.rotation = Interact._DropHandle.rotation;
+                rb.AddRelativeForce(Vector3.forward * 15, ForceMode.Impulse);
+                StopCoroutine("GetItem");
+            }
             yield return null;
         }
         yield break;

@@ -18,7 +18,7 @@ public class GameScore : MonoBehaviour
         }
         else if (score < 0)
         {
-            scoreText.text = $"-{text}";
+            scoreText.text = $"{text}";
         }
     }
 

@@ -5,6 +5,8 @@ using UnityEngine;
 public enum TypeOfTrash
 {
     Default = 0,
-    Organic = 1,
-    Anorganic = 2,
+    Organik = 1,
+    Anorganik = 2,
+    B3 = 3,
+    Kertas = 4,
 }

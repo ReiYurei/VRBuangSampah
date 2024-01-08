@@ -12,14 +12,17 @@ public class CollectiveTrashHandler : MonoBehaviour
 
     public int _TotalTrash;
     public int _TrashLimit;
+    private GameObject planeObj;
     private Transform _mapSize;
-
+    private MeshFilter meshFilter;
 
     private void Awake()
     {
         Instance = this;
         _TrashList = new List<GameObject>();
         _mapSize = GameObject.FindWithTag("Plane").transform;
+        planeObj = GameObject.FindGameObjectWithTag("Plane");
+        meshFilter = GameObject.FindWithTag("Plane").GetComponent<MeshFilter>();
     }
 
     void Start()
@@ -59,25 +62,28 @@ public class CollectiveTrashHandler : MonoBehaviour
     private Vector2 RandomPosition()
     {
         return randGenerator = new Vector2(
-                           Random.Range(-_mapSize.localPosition.x, _mapSize.localPosition.x),
-                           Random.Range(-_mapSize.localPosition.z, _mapSize.localPosition.z)
+                           Random.Range(-meshFilter.mesh.bounds.extents.x, meshFilter.mesh.bounds.extents.x) * planeObj.transform.localScale.x,
+                           Random.Range(-meshFilter.mesh.bounds.extents.z, meshFilter.mesh.bounds.extents.z) * planeObj.transform.localScale.z
                                 );
     }
 
     private void InitialRandomPosition()
     {
+        Debug.Log(randGenerator);
         for (int i = 0; i < _TrashLimit; i++)
         {
             _TrashList[i].gameObject.SetActive(true);
             _TrashList[i].transform.SetSiblingIndex(i);
-            _TrashList[i].transform.position = new Vector3(RandomPosition().x, _mapSize.position.y + 1, RandomPosition().y);
+            _TrashList[i].transform.position = new Vector3(RandomPosition().x, _mapSize.position.y, RandomPosition().y);
+            Debug.Log(randGenerator);
+
         }
     }
     private void SetRandomPosition()
     {
         var index = _TotalTrash - 1;
         _TrashList[index].gameObject.SetActive(true);
-        _TrashList[index].transform.position = new Vector3(RandomPosition().x, _mapSize.position.y + 1, RandomPosition().y);
+        _TrashList[index].transform.position = new Vector3(RandomPosition().x, _mapSize.position.y, RandomPosition().y);
 
         //Sort Last to First
         _TrashList[index].transform.SetAsFirstSibling();

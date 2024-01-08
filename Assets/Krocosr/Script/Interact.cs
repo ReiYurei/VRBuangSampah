@@ -6,13 +6,14 @@ using UnityEngine.UI;
 public class Interact : MonoBehaviour
 {
     public static Transform _HandHandle;
-
+    public static Transform _DropHandle;
     protected static bool _hasItem;
     public static bool HasItem { get { return _hasItem; } set { _hasItem = value; } }
 
     private void Awake()
     {
         _HandHandle = GetComponentInChildren<Transform>().Find("ItemHolder");
+        _DropHandle = GetComponentInChildren<Transform>().Find("DropHolder");
         _hasItem = false;
     }
 

@@ -18,13 +18,17 @@ public class TrashBin : MonoBehaviour
     {
         if (other.CompareTag("Trash"))
         {
+            SoundsManager.Instance._SFXSource.pitch = 1;
             TypeOfTrash typeOfTrash = other.GetComponent<TrashObject>().trashType;
             if(typeOfTrash == acceptedTrash)
             {
+                
+                SoundsManager.Instance.AudioClip(SoundsManager.Instance._Sfx[3]);
                 gameScore.score += plusPoint;
             }
             else
             {
+                SoundsManager.Instance.AudioClip(SoundsManager.Instance._Sfx[4]);
                 gameScore.score += minusPoint * -1;
             }
             other.gameObject.SetActive(false);

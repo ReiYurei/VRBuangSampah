@@ -1,11 +1,11 @@
-
-using Unity.VisualScripting;
+using System.Collections;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
     private Rigidbody _rb;
     private Vector3 _moveInput;
+    private bool _isMoving;
 
     [SerializeField]
     private float _maxSpeed;
@@ -15,6 +15,9 @@ public class PlayerMovement : MonoBehaviour
     private float _deceleration = 30;
 
     private bool canMove;
+    [Header("SFX here!")]
+    [SerializeField]
+    private AudioClip[] _footsteps;
 
     void Start()
     {
@@ -32,9 +35,13 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    private float period = 0.0f;
+
+
     void Update()
     {
         GatherInput();
+        PlaySound();
     }
 
     private void FixedUpdate()
@@ -49,10 +56,12 @@ public class PlayerMovement : MonoBehaviour
         if (_moveInput == Vector3.zero)
         {
             _rb.velocity = Vector3.MoveTowards(_rb.velocity, Vector3.zero, _deceleration * Time.fixedDeltaTime);
+            _isMoving = false;
         }
         else
         {
             _rb.velocity = Vector3.MoveTowards(_rb.velocity, moveDirection * _maxSpeed, _acceleration * Time.fixedDeltaTime);
+            _isMoving = true;
         }
     } 
 
@@ -67,4 +76,18 @@ public class PlayerMovement : MonoBehaviour
         canMove = true;
         GuidePage.OnGuideRead -= EnableMovement;
     }
+    }
+
+    void PlaySound()
+    {
+        if (period > .2f && _isMoving)
+        {
+            SoundsManager.Instance.AudioClip(_footsteps[Random.Range(0, _footsteps.Length)]);
+            period = 0;
+        }
+        period += Time.deltaTime;
+
+    }
+
+
 }

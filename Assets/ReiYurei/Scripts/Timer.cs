@@ -11,26 +11,29 @@ public class Timer : MonoBehaviour
     public bool TimerTicking;
 
     public delegate void TimerAction();
-    public static event TimerAction OnTimerEnd;
+    public static event TimerAction OnTimerEndHandler;
 
     private string minutes;
     private string seconds;
 
     void Start()
     {
-        //s_gameTimer = gameTimer;
+        TimerTicking = false;
+        GuidePage.OnGuideRead += StartTimer;
         minutes = Mathf.Floor(s_gameTimer / 60).ToString("00");
         seconds = Mathf.Floor(s_gameTimer % 60).ToString("00");
     }
     void Update()
     {
+        
         if (s_gameTimer < 0)
         {
             TimerTicking = false;
             timerText.text = $" -- : -- ";
-            if (OnTimerEnd != null)
+            timerText.gameObject.SetActive(false);
+            if (OnTimerEndHandler != null)
             {
-                OnTimerEnd();
+                OnTimerEndHandler();
             }
 
             return;
@@ -42,6 +45,12 @@ public class Timer : MonoBehaviour
             seconds = Mathf.Floor(s_gameTimer % 60).ToString("00");
             timerText.text = $"{minutes} : {seconds}";
         }
-        
+
+    }
+    public void StartTimer()
+    {
+        TimerTicking = true;
+        GuidePage.OnGuideRead -= StartTimer;
+
     }
 }

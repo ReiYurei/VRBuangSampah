@@ -13,23 +13,47 @@ public class CameraTransform : MonoBehaviour
 
     private float xRotation, yRotation;
 
+    private bool canMove;
+
     void Awake()
     {
         Application.targetFrameRate = 60;
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
     }
-
+     void Start()
+    {
+        Cursor.visible = true;
+        canMove = false;
+        Cursor.lockState = CursorLockMode.None;
+        Timer.OnTimerEndHandler += DisableMouse;
+        GuidePage.OnGuideRead += EnableMouse;
+    }
     void Update()
     {
         MouseInput();
         HandleRotation();
         HandlePosition();
     }
-
+    void DisableMouse()
+    {
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
+        _mouseInput = Vector2.zero;
+        canMove = false;
+        Timer.OnTimerEndHandler -= DisableMouse;
+    }
+    void EnableMouse()
+    {
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
+        canMove = true;
+        GuidePage.OnGuideRead -= EnableMouse;
+    }
     void MouseInput()
     {
-        _mouseInput = new Vector2(Input.GetAxisRaw("Mouse X"), Input.GetAxisRaw("Mouse Y")) * Time.deltaTime * _sensitivity;
+        if (canMove == true)
+        {
+            _mouseInput = new Vector2(Input.GetAxisRaw("Mouse X"), Input.GetAxisRaw("Mouse Y")) * Time.deltaTime * _sensitivity;
+        }
     }
 
     private void HandlePosition()

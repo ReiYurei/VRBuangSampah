@@ -69,13 +69,12 @@ public class CollectiveTrashHandler : MonoBehaviour
 
     private void InitialRandomPosition()
     {
-        Debug.Log(randGenerator);
+
         for (int i = 0; i < _TrashLimit; i++)
         {
             _TrashList[i].gameObject.SetActive(true);
             _TrashList[i].transform.SetSiblingIndex(i);
             _TrashList[i].transform.position = new Vector3(RandomPosition().x, _mapSize.position.y, RandomPosition().y);
-            Debug.Log(randGenerator);
 
         }
     }

@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 380584259962336234}
   - component: {fileID: 380584259962336235}
   - component: {fileID: 380584259962335253}
+  - component: {fileID: 3061154756770358064}
   - component: {fileID: 380584259962336232}
   - component: {fileID: 2651138070644642304}
   m_Layer: 0
@@ -103,6 +104,22 @@ Rigidbody:
   m_Interpolate: 1
   m_Constraints: 116
   m_CollisionDetection: 1
+--- !u!114 &3061154756770358064
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 380584259962335254}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 514dbf9764c3e0f48bba271cde26b4c8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  controlPage: {fileID: 0}
+  pressed: 0
+  isShowingControl: 0
+  UIPage: {fileID: 0}
 --- !u!114 &380584259962336232
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -129,8 +146,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.25, y: 1, z: 1.25}
-  m_Center: {x: 0, y: 0.46, z: 0}
+  m_Size: {x: 1.25, y: 1.4728532, z: 1.25}
+  m_Center: {x: 0, y: 0.22357255, z: 0}
 --- !u!1 &3863331366562517150
 GameObject:
   m_ObjectHideFlags: 0

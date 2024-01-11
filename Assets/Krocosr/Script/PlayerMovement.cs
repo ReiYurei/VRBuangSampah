@@ -14,15 +14,22 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField]
     private float _deceleration = 30;
 
+    private bool canMove;
+
     void Start()
     {
+        canMove = false;
+        Timer.OnTimerEndHandler += DisableMovement;
+        GuidePage.OnGuideRead += EnableMovement;
         _rb = GetComponent<Rigidbody>();
     }
 
     void GatherInput()
     {
-        _moveInput = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical"));
-        Vector3.Normalize(_moveInput);
+        if (canMove == true)
+        {
+            _moveInput = Vector3.Normalize(new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical")));
+        }
     }
 
     void Update()
@@ -48,4 +55,16 @@ public class PlayerMovement : MonoBehaviour
             _rb.velocity = Vector3.MoveTowards(_rb.velocity, moveDirection * _maxSpeed, _acceleration * Time.fixedDeltaTime);
         }
     } 
+
+    void DisableMovement()
+    {
+        _moveInput = Vector3.zero;
+        canMove = false;
+        Timer.OnTimerEndHandler -= DisableMovement;
+    }
+    void EnableMovement()
+    {
+        canMove = true;
+        GuidePage.OnGuideRead -= EnableMovement;
+    }
 }

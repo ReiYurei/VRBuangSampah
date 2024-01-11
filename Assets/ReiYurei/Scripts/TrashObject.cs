@@ -22,7 +22,6 @@ public class TrashObject : MonoBehaviour, IInteractable
             Interact.HasItem = !Interact.HasItem;
             StartCoroutine("GetItem");
         }
-        else Debug.LogError("you have item!");
     }
 
     IEnumerator GetItem()

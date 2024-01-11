@@ -6,12 +6,9 @@ public class ShowControl : MonoBehaviour
 {
     public GameObject controlPage;
     [SerializeField] bool pressed;
-    [SerializeField] bool isShowingControl;
-
     void Start()
     {
         controlPage.SetActive(false);
-        isShowingControl = false;
     }
 
     void Update()

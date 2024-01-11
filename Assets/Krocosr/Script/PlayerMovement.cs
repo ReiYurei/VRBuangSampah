@@ -35,13 +35,12 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    private float period = 0.0f;
 
 
     void Update()
     {
         GatherInput();
-        PlaySound();
+        //PlaySound();
     }
 
     private void FixedUpdate()
@@ -76,7 +75,7 @@ public class PlayerMovement : MonoBehaviour
         canMove = true;
         GuidePage.OnGuideRead -= EnableMovement;
     }
-    }
+    private float period = 0.0f;
 
     void PlaySound()
     {
@@ -88,6 +87,5 @@ public class PlayerMovement : MonoBehaviour
         period += Time.deltaTime;
 
     }
-
 
 }

@@ -30,9 +30,10 @@ public class CameraTransform : MonoBehaviour
     void Update()
     {
         MouseInput();
-        HandleRotation();
         HandlePosition();
+	HandleRotation();
     }
+       
     void DisableMouse()
     {
         Cursor.visible = true;

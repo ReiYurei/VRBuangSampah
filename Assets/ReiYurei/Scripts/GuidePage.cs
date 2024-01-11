@@ -13,9 +13,11 @@ public class GuidePage : MonoBehaviour
     int maxPage;
     public delegate void GuideEvent();
     public static event GuideEvent OnGuideRead;
+    private SoundsManager sounds;
 
     private void Start()
     {
+        sounds = SoundsManager.Instance;
         guideParent.SetActive(true);
         foreach (GameObject obj in guide)
         {
@@ -37,6 +39,7 @@ public class GuidePage : MonoBehaviour
 
     public void NextPage()
     {
+        sounds._SFXSource.PlayOneShot(sounds._Sfx[5]);
         HidePage();
         if (page >= maxPage)
         {
@@ -53,6 +56,7 @@ public class GuidePage : MonoBehaviour
 
     public void PreviousPage()
     {
+        sounds._SFXSource.PlayOneShot(sounds._Sfx[6]);
         HidePage();
         if (page <= 1)
         {
@@ -87,6 +91,7 @@ public class GuidePage : MonoBehaviour
             return;
         }
         OnGuideRead();
+        SoundsManager.Instance._MusicSource.Play();
         guideParent.SetActive(false);
     }
 

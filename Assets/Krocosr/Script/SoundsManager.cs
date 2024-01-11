@@ -24,11 +24,7 @@ public class SoundsManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
-        if (SceneManager.GetActiveScene().name == "GameplayScene")
-        {
-            _MusicSource.clip = _Music[0];
-            _MusicSource.Play();
-        }
+        _MusicSource.clip = _Music[0];
     }
     public void AudioClip(AudioClip clip)
     {
